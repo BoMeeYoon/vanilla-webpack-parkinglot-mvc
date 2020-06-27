@@ -6,4 +6,6 @@ node_modules
 
 package-lock.json
 
-*.config.js 
+*.config.js
+babel.config.js
+webpack.config.js 
