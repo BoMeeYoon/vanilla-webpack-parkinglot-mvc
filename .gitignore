@@ -1,2 +1,10 @@
 #node_modules
 node_modules
+
+# Stores VSCode
+.vscode
+
+package-lock.json
+
+babel.config.js
+webpack.config.js
