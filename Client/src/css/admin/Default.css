@@ -1,0 +1,111 @@
+:root {
+    /* Color */
+    --color-lite-white: #ffffffcc;
+    --color-semi-white:#ffffff85;
+    --color-white: #ffff;
+    --color-lite-pink: #fae3e7;
+    --color-pink: #fc5c7cc2;
+    --color-dark-pink: #ed143dbf;
+    --color-lite-blue: #6a82fb3d;
+    --color-blue: #6a82fb;
+    --color-lite-gold: #fde08a5e; 
+    --color-gold: #fcc419;
+    --color-gray: #555;
+
+    /* Font size */
+    --font-large: 32px;
+    --font-medium: 24px;
+    --font-regular: 18px;
+    --font-small: 16px;
+    --font-micro: 14px;
+    --font-nano : 12px;
+
+    /* Font weight */
+    --weight-bold: 700;
+    --weight-semi-bold: 600;
+    --weight-regular: 400;
+
+    /* Size */
+    --size-border-radius-small: 4px;
+    --size-border-radius-regular: 8px;
+    --size-border-radius-large: 16px;
+    --size-border-radius-circle: 32px;
+
+    --line-height-p : 20px;
+
+    --modal-small-width: 400px;
+    --modal-regular-width: 420px;
+    --modal-large-width: 500px;
+    --modal-small-height: 400px;
+    --modal-regular-height: 500px;
+    --modal-large-height: 600px;
+
+}
+*{
+    box-sizing: border-box;
+    color: var(--color-gray);
+}
+html {
+    font-family: 'Open Sans', sans-serif;
+}
+
+html, body, div, span, p, a, form, label, table, tbody, thead, tr, th, td, menu, nav, section, button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    cursor: default;
+}
+
+header, nav, menu, section, footer {
+    display: block;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--color-gray);
+}
+
+ul, li {
+    list-style: none;
+    padding-left: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+button {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+/* Typography */
+
+h1{
+    font-size: var(--font-large);
+    font-weight: var(--weight-bold);
+    margin: 16px 0px;
+  }
+
+h2 {
+    font-size: var(--font-medium);
+    font-weight: var(--weight-semi-bold);
+    margin: 8px 0px;
+}
+
+h3{
+    font-size: var(--font-regular);
+    font-weight: var(--font-regular);
+    margin: 8px 0px;
+}
+
+p{
+    font-size: var(--font-regular);
+    font-weight: var(--font-regular);
+    margin: 4px 0px;
+}
+
