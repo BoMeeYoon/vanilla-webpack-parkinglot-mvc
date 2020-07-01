@@ -1,6 +1,6 @@
 const log = console.log
 const tag = '[ParkingRouter.js]'
-
+const path = require('path')
 const express = require('express')
 const ParkingRouter = express.Router()
 
@@ -8,7 +8,9 @@ const ParkingRouter = express.Router()
 const ParkingController = require('../Controller/ParkingController.js')
 
 const Controller = new ParkingController()
-
+ParkingRouter.get('/main', (req, res) => {
+    res.render(path.join(__dirname, '../../../Client/src/html/parking.html'))
+})
 
 ParkingRouter.get('/?', (req, res) => {
     log(Object.keys(req.query)[0])

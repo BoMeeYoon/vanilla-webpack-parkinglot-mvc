@@ -120,29 +120,38 @@ ParkingQueryModel.prototype.paidCarSet = async function (data, memberId) {
 }
 
 //출차 차량 처리
-ParkingQueryModel.prototype.putUserData = async function (data) {
-    const {carNumber} = data
-    const {entryTime} = data 
-        log('3번이다')
-        log(carNumber)
-        log(entryTime)
+ParkingQueryModel.prototype.putUserData = async function ({carNumber, entryTime, userId}) {
+
         const db = this.DB
         const query = `UPDATE user SET exitTime=NOW() WHERE carNumber = ? and entryTime = ?`
         const params =[carNumber, entryTime]
         let queryResult;
-        try {
-            log(carNumber, 'try 가 안 된다')
+        try {  
             queryResult = await db.sendData(query, params)
-            log(queryResult, 'queryResult')
-            // queryResult.changedRows > 1 //성공
+            queryResult.changedRows > 0 ? queryResult = await this.getExitTime(userId) : -1
+            
         }
         catch {
-            log('catch니?')
             return -1
         }
         
-        log(queryResult, tag, '5번이다')
         return queryResult
 }
+ParkingQueryModel.prototype.getExitTime = async function (userId) {
+    const db = this.DB
+    const query = `select exitTime from user where userId =?`
+    const params = [userId]
+    let queryResult;
+    try {
+        queryResult = await db.sendData(query, params);
+        log(queryResult, 'getExitTime')
+        return queryResult;
+    }
+    catch {
+        return -1
+    }
+
+}
+
 
 module.exports = ParkingQueryModel

@@ -12,7 +12,9 @@ const PayRouter = require('../../4.Pay/Routes/PayRoutes.js')
 CommonRouter.get('/', (req, res) => {
     res.render(path.join(__dirname, '../../../Client/src/html/admin.html'))
 })
-
+CommonRouter.get('/favicon.ico', (req, res) => {
+    res.send(path.join(__dirname, '../../../Client/src/imgs/favicon.png'))
+})
 CommonRouter.use('/member', MemberRouter)
 CommonRouter.use('/parking', ParkingRouter)
 CommonRouter.use('/pay', PayRouter)
