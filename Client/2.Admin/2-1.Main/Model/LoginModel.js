@@ -1,5 +1,6 @@
 export function login(id, pw) {
     localStorage.setItem(id, pw);
+    console.log(id, pw)
     return this;
 }
 

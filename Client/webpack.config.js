@@ -4,6 +4,7 @@ module.exports = {
     mode : 'development',
     entry : {
         admin : './Entries/AdminApp.js',
+        parking : './Entries/ParkingApp.js',
         pay : './Entries/PayApp.js'
     },
     output : {

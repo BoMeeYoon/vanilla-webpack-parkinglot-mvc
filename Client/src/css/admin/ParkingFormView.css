@@ -1,0 +1,72 @@
+.parking__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+
+.parking__form-input {
+    width: 20rem;
+    height: 4rem;
+
+    margin: 4rem 2rem 2rem;
+    padding: 2px;
+    padding-left: 18px;
+
+    border-radius: var(--size-boreder-radius-small);
+    
+    font-size: var(--font-regular);
+    font-weight: var(--weight-semi-bold);
+
+}
+
+.parking__form-items:nth-child(2) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 20rem;
+    height: 4rem;
+}
+
+.parking__form-items button {
+    width: 50%;
+    height: 4rem;
+    
+    border-radius: var(--size-boreder-radius-small);
+    font-size: var(--font-small);
+    font-weight: var(--weight-semi-bold);
+
+    color : var(--color-gray);
+    background-color: var(--color-gold);
+
+    transition: 1s;
+}
+
+#in {
+    color: var(--color-white);
+    background: var(--color-dark-pink);
+
+    transition: 1s;
+}
+
+.parking__form-items button:hover {
+    
+    border-radius: var(--size-boreder-radius-regular);
+    
+    color: var(--color-gray);
+    background-color: var(--color-semi-white);
+    
+    box-shadow: 0 10px 10px var(--color-gold);
+}
+#in:hover {
+
+    border-radius: var(--size-boreder-radius-regular);
+    
+    color: var(--color-gray);
+    background-color: var(--color-white);
+
+    box-shadow: 0 10px 10px var(--color-dark-pink);
+}

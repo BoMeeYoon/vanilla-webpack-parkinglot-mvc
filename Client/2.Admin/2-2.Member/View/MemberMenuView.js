@@ -41,6 +41,7 @@ export default class Menuview extends View {
             </div>
         </div>`    
     }
+    
     _bindElements() {
         this.addBtn = this.el.querySelector('.menu__add-btn');
         
@@ -48,9 +49,12 @@ export default class Menuview extends View {
         this.searchEl = this.el.querySelector('#menu__search-input');
         this.searchBtn = this.el.querySelector('#menu__search-btn')
         this.options;
-        this._bindChange();
         this._bindEvents();
+        this._bindChange();
         return this;
+    }
+    _bindChange() {
+        this.selectEl.addEventListener("change", e => this.options = e.target.value)
     }
     _bindEvents() {
 

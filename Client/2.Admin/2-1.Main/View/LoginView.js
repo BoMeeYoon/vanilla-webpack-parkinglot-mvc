@@ -2,7 +2,7 @@ const log = console.log;
 const tag = '[LoginView.js]';
 
 import View from "../../../1.Common/View/View.js";
-import { createElement } from "../../../1.Common/View/ElementsHooks.js";
+import { createElement, preventEnter } from "../../../1.Common/View/ElementsHooks.js";
 import "../../../src/css/admin/LoginView.css";
 import "../../../src/css/admin/Modal.css";
 
@@ -10,6 +10,7 @@ export default class LoginView extends View {
 
     constructor(el) {
         super(el);
+        preventEnter();
         return this;
     }
     init() {
@@ -114,7 +115,7 @@ export default class LoginView extends View {
     }
     
     bindRemove() {
-        
+        log(this.login)
         this.login && this.login.remove()
         this.el.className="";
         return this;

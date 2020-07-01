@@ -9,37 +9,40 @@ import searchValidation from "../Model/MemberSearchValidation.js";
 import inputValidation from "../Model/MemberInputValidation.js";
 import setState from "../Model/MemberSetDataModel.js";
 import useState from "../Model/MemberUseData.js";
-import {searchRequest, addRequest, updateRequest, deleteRequest} from "../Model/MemberQueryModel.js"
+import {searchRequest, addRequest, updateRequest, deleteRequest, preventEnter} from "../Model/MemberQueryModel.js"
 import {$} from "../../../1.Common/View/ElementsHooks.js";
 
 export default class MemberController {
     constructor() {
-        const menuEl = $("#menu");
-        const addEl = $("#modal");
-        const listsEl = $("#content")
-        const updateEl = $("#modal");
-        const deleteEl = $("#modal")
+        const memberMenuEl = $("#menu");
+        const memberAddEl = $("#modal");
+        const memberListsEl = $("#content")
+        const memberUpdateEl = $("#modal");
+        const memberDeleteEl = $("#modal")
         
         this.checkData = new inputValidation();
         this.setData = new setState();
         this.useData = useState;
-
-        this.menuView = new MenuView(menuEl)
+        
+        
+        this.menuView = new MenuView(memberMenuEl)
             .on("@addMember", e => this.addHandler(e))
             .on("@search", e => this.searchHandler(e.detail));
-        this.addView = new AddView(addEl)
+        this.addView = new AddView(memberAddEl)
             .on("@verify", e => this.checkAddHandler(e.detail))
             .on("@submit", e => this.addQueryHandler(e.detail));
-        this.listsView = new ListsView(listsEl)
+        this.listsView = new ListsView(memberListsEl)
             .on("@edit", e => this.updateHandler(e.detail))
             .on("@delete", e => this.deleteHandler(e.detail));
-        this.updateView = new UpdateView(updateEl)
+        this.updateView = new UpdateView(memberUpdateEl)
             .on("@change", e => this.checkUpdateHandler(e.detail))
             .on("@update", e => this.updateQueryHandler(e.detail))
-        this.deleteView = new DeleteView(deleteEl)
+        this.deleteView = new DeleteView(memberDeleteEl)
             .on("@delete", e => this.deleteQueryHandler(e.detail))
+        return this;
 
     }
+    
     // add
     addHandler(e) {
 
@@ -74,14 +77,12 @@ export default class MemberController {
     }
     //search
     searchHandler({option, inputData}) {
-        
+        this.useData.reset();
         const name = option;
         const value = inputData;
         const result = searchValidation.verify(name, value);
-        this.useData.reset();
-        result === false ? 
-            this.menuView._alertErrorMsg(name)
-            : this.searchQueryHandler(name, value)
+        log(result)
+        result === false ? this.menuView._alertErrorMsg(name) : this.searchQueryHandler(name, value)
     }
     async searchQueryHandler(name, value) {
         const response = await searchRequest(name, value);

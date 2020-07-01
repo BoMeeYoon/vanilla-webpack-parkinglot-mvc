@@ -38,6 +38,7 @@ export default class HeaderView extends View {
         this.el.append(this.header);
 
         this._bindEvents()
+        return this;
     }
 
     _bindEvents() {
@@ -55,7 +56,9 @@ export default class HeaderView extends View {
     };
 
     bindRemove() {
-        this.header && this.header.remove();
+        log(this.header)
+        this.header && this.header.remove()
+        return this;
     }
 
 }
