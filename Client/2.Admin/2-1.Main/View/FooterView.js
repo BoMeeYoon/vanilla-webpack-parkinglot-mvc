@@ -1,5 +1,5 @@
 import {createElement} from '../../../1.Common/View/ElementsHooks.js';
-import "../../../src/css/admin/Default.css";
+
 export default class FooterView {
     constructor(el) {
         this.el = el;

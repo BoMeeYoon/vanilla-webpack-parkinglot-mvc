@@ -3,6 +3,7 @@ const tag = '[HeaderView.js]';
 
 import View from "../../../1.Common/View/View.js";
 import {createElement} from '../../../1.Common/View/ElementsHooks.js';
+import "../../../src/css/Default.css";
 import "../../../src/css/admin/AdminApp.css"
 
 export default class HeaderView extends View {
