@@ -25,27 +25,27 @@ export default class MemberInputValidation {
 
     }
     verify() {
+        log(this.inputData)
         const name = Object.keys(this.inputData)[0];
         const value = Object.values(this.inputData)[0];
         
-
         switch (name) {
 
-            case "startDate" : return { name : this._checkStartDate(name, value) };
+            case "startDate" : return { [name] : this._checkStartDate(name, value) };
 
-            case "expireDate" : return { name : this._checkExpireDate(name, value) };
+            case "expireDate" : return { [name] : this._checkExpireDate(name, value) };
 
-            default : return { name : this._check( name, value ) };
+            default : return { [name] : this._check( name, value ) };
 
         }
     }
     isValidCounter() {
         let count = 0; 
-        log(count)
+        
         for (const value in this.isValid) {
-            log(this.isValid[value])
+            
             this.isValid[value] === true ? count++ : count;
-            log(count)
+            
         }
 
         if(count === 5) {
@@ -94,7 +94,7 @@ export default class MemberInputValidation {
 
     /* 이름, 연락처, 차량번호 검증 */
     _check(name, value) {
-        console.log(name)
+
         const result = new RegExp(this.patterns[name])
         const _result = result.test(value);
 

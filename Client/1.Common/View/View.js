@@ -13,6 +13,7 @@ export default class View {
 
     emit(event, data) {
         const evt = new CustomEvent(event, {
+            bubbles: false,
             detail: data
         });
         this.el.dispatchEvent(evt);
@@ -28,4 +29,4 @@ export default class View {
         this.el.style.display = "";
         return this;
     }
-}
+};

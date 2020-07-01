@@ -11,9 +11,7 @@ export default {
             ajax.send(data);
 
             ajax.addEventListener('load', (err, result) => {
-                log(result);
-                // log(result.result);
-                // log(JSON.parse(result.result));
+                
                 return err ? res(err) : res(result)
             });
         })
@@ -24,8 +22,7 @@ export default {
         
         const _data = await this.send(method, url, data);
         const response = JSON.parse(_data.target.response);
-        log(response)
-        // log(respo)
+       
         return response.result;
     }
 

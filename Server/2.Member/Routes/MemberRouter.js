@@ -26,6 +26,7 @@ MemberRouter.put('/', (req, res) => {
 })
 
 MemberRouter.delete('/', (req, res) => {
+    log(req.body)
     Controller.deleteMember(req.body).then(result => res.send({result}))
 })
 

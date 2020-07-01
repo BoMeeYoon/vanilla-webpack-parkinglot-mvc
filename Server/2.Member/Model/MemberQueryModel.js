@@ -37,12 +37,13 @@ MemberQueryModel.prototype.postMember = async function (userData) {
     let queryResult = ''
 
     try {
-        queryResult = await db.sendData(query, params)
+        queryResult = await db.sendData(query, params);
+        if(queryResult.insertId > 0) return this.getMember(carNumber)
     }
     catch {
         return -1
     }
-    return queryResult.insertId > 0 ? 1 : new Error('postMember error - memberQueryModel.js')
+    return queryResult.insertId > 0 ? 1 : -1
 }
 
 MemberQueryModel.prototype.getSearchData = async function (inputData) {
@@ -82,17 +83,17 @@ MemberQueryModel.prototype.updateMember = async function (memberData) {
     }
     
     
-    return queryResult.changedRows > 0 ? 1 : new Error('memberModel updatemember 오류발생')
+    return queryResult.affectedRows > 0 ? 1 : new Error('memberModel updatemember 오류발생')
 }
 
-MemberQueryModel.prototype.deleteMember = async function (carNumber) {
+MemberQueryModel.prototype.deleteMember = async function (memberId) {
     const db = this.DB
-    const query = `DELETE from member where carNumber = ?`
+    const query = `DELETE from member where memberId = ?`
     
     let queryResult = ''
 
     try {
-        queryResult = await db.sendData(query, carNumber.carNumber)
+        queryResult = await db.sendData(query, memberId)
         log(queryResult)
     }
     catch {

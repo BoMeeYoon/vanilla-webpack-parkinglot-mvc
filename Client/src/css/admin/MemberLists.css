@@ -35,7 +35,7 @@
     width: 100%;
 }
 
-.lists__table-head tr th {
+.lists__table-head tr th, .lists__table-body tr td {
     width: 100px;
 }
 

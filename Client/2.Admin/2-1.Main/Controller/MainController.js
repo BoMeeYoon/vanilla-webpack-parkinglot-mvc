@@ -13,56 +13,67 @@ import {authorize} from "../../../1.Common/Model/Auth.js";
 import {login, logout} from '../Model/LoginModel.js'
 
 export default class MainController {
-
     constructor() {
-        this.headerViewEl = $("#header");
-        this.loginViewEl = $("#modal");
-        this.footerViewEl = $("#footer");
-        this.menuViewEl = $("#menu");
+        const headerViewEl = $("#header");
+        const loginViewlEl = $("#modal");
+        const footerViewEl = $("#footer");
 
-        this.headerView;
-        this.menuView;
-        this.loginView;
-        this.footerView = new FooterView(this.footerViewEl);
-
-        this.memberController;
-        this.parkingController;
+        this.headerView = new HeaderView(headerViewEl)
+            .on("@logout", e => this.logoutHandler())
+            .on("@changePage", e => this.goin(e.detail.pageName))
+        this.loginView = new LoginView(loginViewlEl)
+            .on("@login", e => this.loginHandler(e.detail))
+        this.footerView = new FooterView(footerViewEl);
 
         this.authHandler();
     }
-
-    authHandler() {      
+    authHandler() {
         const _auth = authorize();
         _auth === "login" ? this.login() : this.goin()
     }
-
     login() {
-        this.reset()
-        this.headerView = new HeaderView(this.headerViewEl, "입출차관리", "LOGIN");
-        this.loginView = new LoginView(this.loginViewEl)
-            .on("@login", e => {
-                const {id, pw} = e.detail;
-                login(id, pw);
-                this.goin()
+        this.headerView.bindRemove();
+        this.sectionRemoveHandler();
+        this.headerView.init("입출차관리", "LOGIN");
+        this.loginView.init();
 
-            })
     }
-    
-    goin() {
-        this.reset()
-        this.headerView = new HeaderView(this.headerViewEl, "입출차관리", "LOGOUT")
-            .on("@changePage", e => new ParkingController())
-            .on("@logout", e => {
-                logout();
-                this.menuViewEl.style.display = "none";
-                this.login();              
-            })
-        new MemberController();
+    goin(pageName = "goMember") {
+        switch(pageName) {
+            case "goMember" : 
+                this.loginView.bindRemove();
+                this.headerView.bindRemove();
+                this.headerView.init("입출차관리", "LOGOUT");
+                new MemberController();
+                break;
+            case "goParking" :
+                this.headerView.bindRemove();
+                this.sectionRemoveHandler();
+                this.headerView.init("회원관리", "LOGOUT");
+                new ParkingController();
+                break;
+            }
     }
+    loginHandler({id, pw}) {
+        login(id, pw);
+        this.goin();
+    }
+    logoutHandler() {
+        logout();
+        this.login();
+    }
+    sectionRemoveHandler() {
+        const menuViewEl = $("#menu");
+        const contentEl = $("#content");
 
-    reset() {
-        this.headerViewEl.firstChild && this.headerView.bindRemove()
-        this.loginViewEl.firstChild && this.loginView.bindRemove()
+        if(!menuViewEl.firstChild) return this;
+        while(menuViewEl.firstChild) {
+            menuViewEl.firstChild.remove(menuViewEl.firstChild)
+        };
+        if(!contentEl.firstChild) return this;
+        while(contentEl.firstChild) {
+            contentEl.firstChild.remove(contentEl.firstChild)
+        };
     }
     
 }

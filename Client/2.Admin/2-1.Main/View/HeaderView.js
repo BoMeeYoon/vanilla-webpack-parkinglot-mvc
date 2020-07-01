@@ -7,10 +7,12 @@ import "../../../src/css/admin/AdminApp.css"
 
 export default class HeaderView extends View {
 
-    constructor(el, adminMenu, logState) {
-
+    constructor(el) {
         super(el);
-        
+        return this;
+    };
+    
+    init(adminMenu, logState) {
         this.adminMenu = adminMenu;
         this.logState = logState;
 
@@ -36,16 +38,15 @@ export default class HeaderView extends View {
         this.el.append(this.header);
 
         this._bindEvents()
-        return this;
-    };
+    }
 
     _bindEvents() {
         
         this.navAdminMenuBtn.addEventListener('click', () => {
             this.adminMenu === "회원관리" ? 
-                this.emit("@changePage", {changePage : "goMember"}) 
+                this.emit("@changePage", {pageName : "goMember"}) 
                 : 
-                this.emit("@changePage", {changePage : "goParking"});
+                this.emit("@changePage", {pageName : "goParking"});
         });
 
         this.navLogoutBtn.addEventListener('click', () => this.emit("@logout"))
@@ -54,7 +55,7 @@ export default class HeaderView extends View {
     };
 
     bindRemove() {
-        this.header.remove();
+        this.header && this.header.remove();
     }
 
 }

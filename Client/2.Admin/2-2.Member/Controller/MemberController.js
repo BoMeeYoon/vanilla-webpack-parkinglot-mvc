@@ -1,116 +1,134 @@
 const log = console.log;
+import MenuView from "../View/MemberMenuView.js";
+import AddView from "../View/MemberAddView.js";
+import ListsView from "../View/MemberListsView.js";
+import UpdateView from "../View/MemberUpdateView.js";
+import DeleteView from "../View/MemberDeleteView.js";
 
-import MenuView from '../View/MemberMenuView.js';
-import AddView from '../View/MemberAddView.js';
-import ListsView from '../View/MemberListsView.js';
-// import SearchView from '../View/MemberMenuView.js';
-
-import SetData from '../Model/MemberSetDataModel.js';
-import VerifyInputData from '../Model/MemberInputValidation.js';
-import VerifySearchData from '../Model/MemberSearchValidation.js';
-import UseData from '../Model/MemberUseData.js';
-import {searchRequest, updateRequest, deleteRequest, addRequest} from '../Model/MemberQueryModel.js';
-import {$} from '../../../1.Common/View/ElementsHooks.js'
-
-
+import searchValidation from "../Model/MemberSearchValidation.js";
+import inputValidation from "../Model/MemberInputValidation.js";
+import setState from "../Model/MemberSetDataModel.js";
+import useState from "../Model/MemberUseData.js";
+import {searchRequest, addRequest, updateRequest, deleteRequest} from "../Model/MemberQueryModel.js"
+import {$} from "../../../1.Common/View/ElementsHooks.js";
 
 export default class MemberController {
     constructor() {
-        const menuViewEl = $("#menu");
+        const menuEl = $("#menu");
+        const addEl = $("#modal");
+        const listsEl = $("#content")
+        const updateEl = $("#modal");
+        const deleteEl = $("#modal")
         
-        this.menuView = new MenuView(menuViewEl)
-            .on("@addMember", () => this.addHandler())
-            .on("@search", e => this.searchHandler(e.detail))
-        this.verify = new VerifyInputData();
-    }
-    addHandler() {
-        log('addHandler')
-        const setInputData = new SetData();
-        const addViewEl = $("#modal");
-        
-        this.addView = new AddView(addViewEl)
-            .on("@verify", e => this.onVerifyMember(e.detail, setInputData))
-            .on("@submit", e => this.addResultHandler(setInputData))
-    }
-    onVerifyMember(inputData, setInputData) {
-        log(inputData, setInputData)
-        const type = this.verify.setInputData(inputData, setInputData).verify();
-        log(type)
-        if(Object.values(type)[0] === false) {
-            this.addView.alertErrorMsg(inputData)
-            this.addView.onFocusStyle(inputData)
-        } else {
-            this.addView.disabledStyle(inputData)
-            const count = this.verify.isValidCounter()
-            
-            if(count === 5) {   
-                       
-                this.addView.isValid()
-                UseData.add(setInputData.getData())
-            }
-           
-        }
+        this.checkData = new inputValidation();
+        this.setData = new setState();
+        this.useData = useState;
 
-    }
-    async addResultHandler(setInputData) {
-        const response = await addRequest(setInputData.getData());
-        log(response);
-        if(response !==1) return this.addView.alertErrorMsg(response);
-        UseData.list().then(res => this.listsHandler(res));
-        this.addView.goBack();
-        // UseData.remove();
-    }
-    
-    async searchHandler( {option, inputData} ) {
-        log(option, inputData)
-        
-        const result = VerifySearchData.verify(option, inputData);
-        log(result)
-
-        if(result === false) {
-            this.menuView.alertErrorMsg(option)
-        } else {
-            this.searchResultHandler(await searchRequest(option, inputData))
-        }
-
-    }
-    searchResultHandler(response) {
-        log(response)
-        // 혹시 여기서 에러 생기면 response 가 컬렉션으로 왔을 때 안 벗겨 진 것임.
-        //searchRequest 에서 조건 걸어서 해결해주기
-        if(response === -1) return this.menuView.alertErrorMsg("query") 
-        this.listsHandler(response);
-        UseData.add(response);
-    }
-    listsHandler(data) {
-        log(data)
-        const listsEl = $("#content");
+        this.menuView = new MenuView(menuEl)
+            .on("@addMember", e => this.addHandler(e))
+            .on("@search", e => this.searchHandler(e.detail));
+        this.addView = new AddView(addEl)
+            .on("@verify", e => this.checkAddHandler(e.detail))
+            .on("@submit", e => this.addQueryHandler(e.detail));
         this.listsView = new ListsView(listsEl)
-            .on("@edit", e => this.updateHandler(e.detail.memberData))
-            .on("@delete", e => this.deleteHandler(e.datail))
-        this.listsView.mountLists(data);
+            .on("@edit", e => this.updateHandler(e.detail))
+            .on("@delete", e => this.deleteHandler(e.detail));
+        this.updateView = new UpdateView(updateEl)
+            .on("@change", e => this.checkUpdateHandler(e.detail))
+            .on("@update", e => this.updateQueryHandler(e.detail))
+        this.deleteView = new DeleteView(deleteEl)
+            .on("@delete", e => this.deleteQueryHandler(e.detail))
+
     }
-    updateHandler(memberData) {
-        const response = updateRequest(memberData);
-        if(response !== 1) {
-            this.updateview.alertErrorMsg(response);
-        } else {
-            UseData.add(memberData).list().then(res => {
-                this.listsHandler(res);
-            })
+    // add
+    addHandler(e) {
+
+        e.stopPropagation();
+        this.addView.init();
+
+    }
+    checkAddHandler(inputData) {
+        
+        const result = this.checkData.setInputData(inputData, this.setData).verify();
+        const name = Object.keys(result)[0];
+        const value = Object.values(result)[0];
+        
+        if(value === false) return this.addView.sendErrorMsg(name)
+        
+        this.addView.sendSuccess(name) 
+        const counter = this.checkData.isValidCounter();
+
+        counter === 5 && this.addView.isValid();
+        
+    }
+    async addQueryHandler(addData) {
+        
+        const response = await addRequest(addData);
+        
+        if(response === -1) return this.addView.sendErrorMsg("query");
+        this.useData.add(response);
+        this.useData.list()
+            .then( res => this.listsHandler(res))
+        this.addView.goBack();
+        
+    }
+    //search
+    searchHandler({option, inputData}) {
+        
+        const name = option;
+        const value = inputData;
+        const result = searchValidation.verify(name, value);
+        this.useData.reset();
+        result === false ? 
+            this.menuView._alertErrorMsg(name)
+            : this.searchQueryHandler(name, value)
+    }
+    async searchQueryHandler(name, value) {
+        const response = await searchRequest(name, value);
+        if(response !== -1) return this.listsHandler(response);
+        this.menuView._alertErrorMsg("query")
+    }
+    listsHandler(response) {
+
+        this.listsView.init(response);
+    } 
+    //update
+    updateHandler(data) {
+        this.updateView.init(data);
+    } 
+    checkUpdateHandler(updateData) {
+        const result = this.checkData.setInputData(updateData, this.setData).verify();
+        const name = Object.keys(result)[0];
+        const value = Object.values(result)[0];
+        value === false && this.updateView.sendErrorMsg(name);   
+    }
+    async updateQueryHandler(updateData) {
+        
+        const response = await updateRequest(updateData);
+        if(response !==1) return this.updateView.sendErrorMsg("query");
+
+        this.useData.add(updateData);
+        this.useData.list()
+            .then( res => this.listsHandler(res))
+        this.updateView.goBack();
+    }
+    //delete
+    deleteHandler(deleteData) {
+        this.deleteView.init(deleteData);
+    }
+    async deleteQueryHandler({memberId, name}) {
+        const response = await deleteRequest(memberId);
+        if(response === 1) {
+            this.deleteView.sendMsg(name);
+            this.useData.delete(memberId);
+            this.useData.list()
+            .then( res => this.listsHandler(res))
         }
 
     }
-    deleteHandler({name, carNumber}) {
-        this.deleteView = new DeleteView($("#modal"), name)
-            .on("@delete", e => this.deleteResultHandler(deleteRequest(carNumber), carNumber))
-    }
-    deleteResultHandler(response, carNumber) {
-        if(response === 1) {
-            this.deleteView.alertMsg();
-            UseData.delete(carNumber).list().then(res => {
-                this.listsViewHandler(res);
-            })
-        }
-    }
+
+
+    
+  
+
 }

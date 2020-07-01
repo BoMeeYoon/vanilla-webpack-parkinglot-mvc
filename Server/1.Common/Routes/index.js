@@ -3,7 +3,8 @@ const tag = '[server-1.common-routes-index.js]'
 
 const express = require('express')
 const CommonRouter = express.Router()
-const path = require('path')
+const path = require("path");
+const fs = require("fs");
 const MemberRouter = require('../../2.Member/Routes/MemberRouter.js')
 const ParkingRouter = require('../../3.Parking/Routes/ParkingRouter.js')
 const PayRouter = require('../../4.Pay/Routes/PayRoutes.js')

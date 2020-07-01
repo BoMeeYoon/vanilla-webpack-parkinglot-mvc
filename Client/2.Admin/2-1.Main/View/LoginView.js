@@ -6,12 +6,13 @@ import { createElement } from "../../../1.Common/View/ElementsHooks.js";
 import "../../../src/css/admin/LoginView.css";
 import "../../../src/css/admin/Modal.css";
 
-
 export default class LoginView extends View {
 
     constructor(el) {
         super(el);
-
+        return this;
+    }
+    init() {
         //logo ui
         this.login = createElement('div', 'login');
 
@@ -67,7 +68,7 @@ export default class LoginView extends View {
             BLANK_PW : `비밀번호를 입력하세요`
         }
         this._bindEvents();
-        
+
         return this;
     }
     _bindEvents() {
@@ -113,7 +114,9 @@ export default class LoginView extends View {
     }
     
     bindRemove() {
-        this.login.remove();
+        
+        this.login && this.login.remove()
         this.el.className="";
+        return this;
     }
 }

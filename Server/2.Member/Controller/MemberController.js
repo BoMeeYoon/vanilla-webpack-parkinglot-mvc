@@ -47,10 +47,10 @@ MemberController.prototype.updateMember = async function (memberData) {
     return await this.Sql.updateMember(memberData)
 }
 
-MemberController.prototype.deleteMember = async function (carNumber) {
+MemberController.prototype.deleteMember = async function (memberId) {
     
-    if(!carNumber) return 
-    const result = await this.Sql.deleteMember(carNumber)
+    if(!memberId) return 
+    const result = await this.Sql.deleteMember(memberId[0])
     
     return result
 }

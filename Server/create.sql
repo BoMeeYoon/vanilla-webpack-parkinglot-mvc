@@ -44,3 +44,6 @@ alter table 'user' modify `entryTime` `datetime` not null
 
 ALTER TABLE `user` CHANGE `entryTime` `entryTime` timestamp default CURRENT_TIMESTAMP not NULL
 ALTER TABLE `user` CHANGE `exitTime` `exitTime` timestamp default CURRENT_TIMESTAMP NULL
+
+alter table member auto_increment = 1;
+delete from member;

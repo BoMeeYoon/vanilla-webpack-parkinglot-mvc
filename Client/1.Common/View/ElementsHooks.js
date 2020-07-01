@@ -40,3 +40,12 @@ export function changeCss(selector, cssFile) {
 
     return this;
 };
+
+export function preventEnter() {
+    document.addEventListener("keydown", e => {
+        if(e.keyCode === 13) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    });
+}

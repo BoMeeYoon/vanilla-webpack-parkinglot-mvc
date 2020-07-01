@@ -1,17 +1,19 @@
 const log = console.log;
 import View from '../../../1.Common/View/View.js';
-import {modalView} from '../../../1.Common/View/Modal.js';
-import {$} from '../../../1.Common/View/ElementsHooks.js';
 import "../../../src/css/admin/MemberLists.css"
 
 export default class MemberListsView extends View {
     constructor(el) {
-        log('ListsView')
         super(el);
-        this._initRender();
+        this.data
         return this;
     }
-    _initRender() {
+    init(data) {
+        this.data = data;
+        this._moundListsHeader();
+        this._mountListsBody();
+    }
+    _moundListsHeader() {
         return this.el.innerHTML = `
         <div class="lists">
             <table class="lists__table">
@@ -32,20 +34,19 @@ export default class MemberListsView extends View {
         </div>
         `   
     }
-    mountLists(data) {
-        log(data)
+    _mountListsBody() {
+
         this.listsEl = this.el.querySelector(".lists__table-body");
-        this.listsEl.innerHTML = this._getListsHtml(data);
+        this.listsEl.innerHTML = this._getListsHtml();
         this._bindEvents()
         return this;
     }
-    _getListsHtml(data) {
+    _getListsHtml() {
         let count = 1;
        
-        return data.reduce( (html, info) => {
+        return this.data.reduce( (html, info) => {
             html += this._getListHtml(count, info);
             count++;
-
             return html
         }, '')
     }
@@ -58,45 +59,35 @@ export default class MemberListsView extends View {
             <td>${info.mobile}</td>
             <td>${info.startDate}</td>
             <td>${info.expireDate}</td>
-            <td><button class="lists__table-editBtn" data-member=${JSON.stringify(info)}>수정</button></td>
-            <td><button class="lists__table-deleteBtn" data-member=${JSON.stringify(info)}>삭제</button></td>
+            <td><button class="lists__table-editBtn" id=${count-1}>수정</button></td>
+            <td><button class="lists__table-deleteBtn" id=${count-1}>삭제</button></td>
         </tr>
     `
     }
     _bindEvents() {
         this.editBtns = this.el.querySelectorAll(".lists__table-editBtn");
-        this.deleteBtns = this.el.querySelectorAll("lists__table-deleteBtn");
-
-        Array.from(this.editBtns).forEach(btn => btn.addEventListener("click", e => {
-            e.preventDefault();
-            const _memberData = e.target.dataset.member
-            const memberData = JSON.parse(_memberData);
-            this.on("@edit", {memberData});
+        this.deleteBtns = this.el.querySelectorAll(".lists__table-deleteBtn");
+        
+        Array.from(this.editBtns).forEach(btn => 
+            btn.addEventListener("click", e => 
+               { e.preventDefault();
+                 e.stopPropagation();
+                 const memberData = this.data[e.target.id];
+                 this.emit("@edit", memberData);
         }));
 
         Array.from(this.deleteBtns).forEach(btn => btn.addEventListener("click", e => {
             e.preventDefault();
-            const _memberData = e.target.dataset.member
-            const memberData = JSON.parse(_memberData);
-            const {name, carNumber} = memberData;
-            this.on("@delete", {name, carNumber})
+            const memberData = this.data[e.target.id];
+            const {memberId, name} = memberData;
+            log(memberData);
+            log(memberId, name)
+            this.emit("@delete", {memberId, name})
         }))
     }
-    // _deleteModalMount(name, carNumber) {
-    //     const title = `${name}님의 정보를 삭제하시겠습니까?`
-    //     const text = `삭제한 정보는 복구할 수 없습니다`
-    //     modalView(this.modalEl, title, text);
-    //     this.yesBtn = $('.modal__confirm-yes');
-    //     this.noBtn = $('.modal__confirm-no');
-
-    //     this.yesBtn.addEventListener("click", e => {
-    //         e.preventDefault();
-    //         this.emit("@delete", {carNumber});
-    //         this._modalHide()
-    //     });
-    //     this.noBtn.addEventListener("click", () => this._modalHide())
-    // }
-    // _modalHide() {
-    //     this.modalEl.display.style="none";
-    // }
+    bindRemove() {
+        const lists = this.el.querySelector(".lists")
+        lists && lists.remove()
+        
+    }
 }

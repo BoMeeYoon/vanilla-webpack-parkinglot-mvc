@@ -1,16 +1,27 @@
 const log = console.log
 import View from '../../../1.Common/View/View.js';
 import "../../../src/css/admin/MemberForm.css";
-
+import {preventEnter} from "../../../1.Common/View/ElementsHooks.js"
 export default class MemberAddView extends View {
     constructor(el) {
         super(el);
-        this.show()
-        this._initRender()
-        this._initBind()
+        this.errorMsg = {
+            carNumber : `차량번호를 다시 입력하세요`,
+            name : `두 글자 이상 입력하세요`,
+            mobile : `핸드폰 번호를 다시 입력하세요`,
+            startDate : `계약일은 오늘 날짜 이후 부터 선택하세요`,
+            expireDate : `만료일을 확인하세요`,
+            submit : `정보를 모두 입력하세요`,
+            query : `이미 가입된 차량번호 입니다`
+        }
         return this;
     }
-    _initRender() {
+    init() {
+        this._initMount();
+        this._initBind();
+        preventEnter();
+    }
+    _initMount() {
         this.el.innerHTML = `
         <div class="add modal">
             <form class="add__form">
@@ -49,9 +60,10 @@ export default class MemberAddView extends View {
             </form>
         </div>`
     }
+
     _initBind() {
         this.inputEls = this.el.querySelectorAll('.add__form-input');
-    
+        this.form = this.el.querySelector('.add__form')
         this.carNumber = this.el.querySelector('[name="carNumber"]');
         this.name = this.el.querySelector('[name="name"]');
         this.mobile = this.el.querySelector('[name="mobile"]');
@@ -62,35 +74,48 @@ export default class MemberAddView extends View {
         this.resetBtn = this.el.querySelector('#reset');
         this.backBtn = this.el.querySelector('#back');
 
-        this._bindEvents()
+        this._bindInputEls();
+        this._bindBtns();
         return this;
     }
-
-    _bindEvents() {
-        Array.from(this.inputEls).forEach( el => {
-            el.addEventListener('click', e => this.onChangeStyle(e.target))
-            el.addEventListener('change', e => this.onChangeEvent(e))
+    _bindInputEls() {
+        
+        Array.from(this.inputEls).forEach( input => {
+            input.addEventListener('click', e => {
+                e.stopPropagation();
+                e.target.placeholder = '';
+            })
+            input.addEventListener('change', e => {
+                e.stopPropagation();
+                this._bindChange(e)
+            })                
         })
-        this.submitBtn.addEventListener('click', e => {
+    }
+    _bindChange (e) {
+        const {name, value} = e.target;
+        this.emit("@verify", {[name] : value })
+    }
+
+    _bindBtns() {
+        
+        this.submitBtn.addEventListener("click", e => {
             e.preventDefault();
-            this.onSubmitEvent()
+            e.stopPropagation();
+            const queryData = {
+                carNumber : this.carNumber.value,
+                name : this.name.value,
+                mobile : this.mobile.value,
+                startDate : this.startDate.value,
+                expireDate : this.expireDate.value,
+            }
+            this.emit("@submit", queryData);
         })
-        this.backBtn.addEventListener('click', e => this.goBack())
-        this.resetBtn.addEventListener('click', e => this.onResetEvent())
+        this.backBtn.addEventListener('click', () => this.goBack())
+        this.resetBtn.addEventListener('click', () => this._bindReset())
     }
 
-    
-    onChangeEvent (e) {
-        const {name, value} = e.target
-    
-        this.emit('@verify', {[name]:value})
-    }
 
-    onSubmitEvent () {
-        this.emit('@submit', {method : 'POST'})
-    }
-
-    onResetEvent () {
+    _bindReset () {
         Array.from(this.inputEls).filter( e => e.name !== 'carNumber' ? e.disabled = true : e.disabled = false)
 
         this.carNumber.placeholder ="12가1234"
@@ -99,37 +124,21 @@ export default class MemberAddView extends View {
     }
 
     goBack () {
-        this.hide()
-        this.onResetEvent()
+        this.el.querySelector('.add').remove()
     }
 
-    errorMsg = function (result) {
-   
-        switch(Object.keys(result)[0]) {
-            case 'carNumber' : return '차량번호를 다시 입력하세요'
-            case 'name' : return '두 글자 이상 입력하세요'
-            case 'mobile' : return '핸드폰 번호를 다시 입력하세요'
-            case 'startDate' : return '계약일은 오늘 날짜 이후 부터 선택하세요'
-            case 'expireDate' : return '만료일을 확인하세요'
-            case 'submit' : return '정보를 모두 입력하세요'
-            case 'result' : return '이미 가입된 차량번호 입니다.'
-            default : return new Error('입력폼 에러 메세지 확인 요망')
-        }
-    }
-
-    alertErrorMsg (result) {
-        log(result)
-        alert(this.errorMsg(result))
-    }
-
-    onChangeStyle (el) {
+    sendErrorMsg (name) {
         
-        el.placeholder = ''
+        alert(this.errorMsg[name])
     }
-
-    onFocusStyle (result) {
+    sendSuccess ( name ) {
+        this._onFocusStyle(name);
+        this._disabledStyle(name);
+    }
     
-        switch(Object.keys(result)[0]) {
+    _onFocusStyle (name) {
+    
+        switch(name) {
             case 'carNumber' : return this.carNumber.focus()
             case 'name' : return this.name.focus()
             case 'mobile' : return this.mobile.focus()
@@ -139,8 +148,8 @@ export default class MemberAddView extends View {
         }
     }
 
-    disabledStyle (result) {
-        switch(Object.keys(result)[0]) {
+    _disabledStyle (name) {
+        switch(name) {
             case 'carNumber' :
                 this.name.placeholder = ''
                 this.name.disabled = false
@@ -168,4 +177,5 @@ export default class MemberAddView extends View {
         this.submitBtn.style.background = 'crimson'
         this.submitBtn.style.color = 'white'
     }
+    
 }
