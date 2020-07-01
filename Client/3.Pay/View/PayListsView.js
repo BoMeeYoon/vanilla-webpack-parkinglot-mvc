@@ -1,6 +1,6 @@
 const log = console.log
 const tag = '[PayListsView.js]'
-import {$} from '../../1.Common/View/ElementHooks.js'
+import {preventEnter} from "../../1.Common/View/ElementsHooks.js"
 import View from '../../1.Common/View/View.js';
 
 export default class PayListsView extends View {
@@ -12,7 +12,7 @@ export default class PayListsView extends View {
         this.result = result;
         this.display1El = this.el.querySelector("#display-1")
         this.display2El = this.el.querySelector("#display-2")
-        
+        preventEnter();
         this._initRender();
         this._bindrenderLists();
 
@@ -65,7 +65,7 @@ export default class PayListsView extends View {
     _getListHtml(info, count) {
         
         return `
-        <tr class="pay__table-tr" data-id=${info.memberId}>
+        <tr class="pay__table-tr" data-id=${info.userId}>
             <th>${count}</th>
             <td class="carnumber" data-carnumber = ${info.carNumber}>${info.carNumber}</td>
             <td class="time" data-time=${JSON.stringify(info.entryTime)}>${info.entryTime}</td>
@@ -78,11 +78,11 @@ export default class PayListsView extends View {
             e.preventDefault();
             const carNumber = tr.querySelector('.carnumber').dataset.carnumber;
             const entryTime = tr.querySelector('.time').dataset.time;
-            const memberId = tr.dataset.id;
-            log(carNumber, entryTime, memberId);
-            const data = {carNumber, entryTime, memberId};
+            const userId = tr.dataset.id;
+            log(carNumber, entryTime, userId);
+            const data = {carNumber, entryTime, userId};
 
-            this.emit('@click', {data})
+            this.emit('@select', {data})
         }))
         this.reSearchBtn = this.el.querySelector('.reSearchBtn')
         this.homeBtn = this.el.querySelector('.homeBtn')

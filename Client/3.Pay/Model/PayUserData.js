@@ -1,28 +1,25 @@
+const log = console.log;
 export default class UserData {
     constructor() {
         this.carNumber
         this.entryTime
         this.paid 
-        this.now = new Date()
+        this.userId
         
         this.hs
         this.ms 
 
-        this.time 
         this.fee 
-
     }
-    setCarNumber(carNumber) {
-        this.carNumber = carNumber
+    setUserData(data) {
+        log(data)
+        this.carNumber = data.carNumber;
+        this.entryTime = data.entryTime;
+        this.paid = data.paid;
+        this.userId = data.userId;
+        log(this.entryTime)
     }
-    setEntryTime(entryTime) {
-        this.entryTime = entryTime
-    }
-    setPaid(paid) {
-        this.paid=paid
-    }
-    setPayInfo(time, fee) {
-        this.time = time
+    setFee(fee) {
         this.fee = fee
     }
     setHours(hs, ms) {
@@ -33,12 +30,10 @@ export default class UserData {
         this.carNumber =''
         this.entryTime =''
         this.paid =''
-        this.now = new Date()
         
         this.hs =''
         this.ms =''
 
-        this.time ='' 
         this.fee ='' 
     }
 
@@ -46,6 +41,7 @@ export default class UserData {
         return this.carNumber
     }
     getEntryTime() {
+        log(this.entryTime)
         return this.entryTime
     }
     getTime() {
@@ -62,6 +58,9 @@ export default class UserData {
     }
     getMs() {
         return this.ms
+    }
+    getUserId() {
+        return this.userId;
     }
     
     

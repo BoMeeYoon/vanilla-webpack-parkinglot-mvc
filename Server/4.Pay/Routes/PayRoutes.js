@@ -24,7 +24,7 @@ PayRouter.get('/out', (req, res) => {
 PayRouter.put('/out', (req, res) => {
     log(req.body)
     const query = new PayController()
-    query.updatePaid(req.body.carNumber).then(result=> {
+    query.updatePaid(req.body).then(result=> {
         log(result, tag)
         res.send({result})
     })

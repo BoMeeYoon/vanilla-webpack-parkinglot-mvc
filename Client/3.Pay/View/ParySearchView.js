@@ -4,8 +4,9 @@ import {preventEnter} from "../../1.Common/View/ElementsHooks.js";
 export default class PaySearchView extends View {
     constructor(el) {
         super(el);
-        this.display1El = this.el.querySelector("#display-1")
-        this.display2El = this.el.querySelector("#display-2")
+        this.display1El = this.el.querySelector("#display-1");
+        this.display2El = this.el.querySelector("#display-2");
+        preventEnter();
         this._initMount();
         this._bindElements();
         return this;
@@ -65,9 +66,7 @@ export default class PaySearchView extends View {
             btn.addEventListener('click', e => this.onClickEvent(e))
         })
         this.submitBtn.addEventListener('click', e=> {
-            _(e)
             this.onSubmit(e)
-
         })
         this.resetBtn.addEventListener('click', () => this.reset())
     }

@@ -1,33 +1,34 @@
 
-
+const log = console.log;
 export default class PayFeeCalc {
-    constructor(userData) {
-        this.userData = userData
+    constructor() {
+        this.userData;
+        this.useState;
+        this.hs;
+        this.ms;
+        return this;
     }
-    getTimer() {
-        const now = this.userData.getNow()
-        const entryTime = new Date(this.userData.getEntryTime())
-        
-        const timer = Math.floor( ((now.getTime()) - (entryTime.getTime())) / 60000 )
-
-        let hs;
-        30 < timer < 60 ? hs = 1 : hs = Math.floor(timer/60)
-        log(30 < timer < 60)
-        const ms = timer%60
-
-        this.userData.setHours(hs, ms)
-        return this
+    
+    setData(userData, useState) {
+        this.userData = userData;
+        this.useState = useState;
+        return this;
     }
-    getTime() {
-        const hs = this.userData.getHs()
-        const ms = this.userData.getMs()
-
-        const time = `${hs}시간 ${ms}분`
+    
+    getTimer = () => {
+        const now = new Date();
+        const entryTime = new Date(this.userData.entryTime);
+        log(entryTime);
+        const timer = Math.floor( ((now.getTime()) - (entryTime.getTime()))/60000 );
         
-        const fee = (hs*1000).toLocaleString()
-
-        this.userData.setPayInfo(time, fee)
-
-        return this
+        30 < timer <60 ? this.hs = 1 : this.hs = Math.floor(timer/60);
+        this.ms = timer%60;
+        
+        return `${this.hs}시간 ${this.ms}분`;
+    }
+    getFee = () => {
+        this.useState.setFee(this.hs*1000);
+        const fee = (this.hs*1000).toLocaleString();
+        return `${fee}원`;
     }
 }

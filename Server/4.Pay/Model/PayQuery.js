@@ -45,10 +45,11 @@ PayQueryModel.prototype.getUser = async function (carNumber) {
     }
 
 }
-PayQueryModel.prototype.updatePaid = async function (carNumber) {
+PayQueryModel.prototype.updatePaid = async function (userId) {
+    log(userId)
     const db = this.db
-    const query = `update user set paid = 1, exitTime = now() where carNumber = ?`
-    const params = carNumber
+    const query = `update user set paid = 1, exitTime = now() where userId = ?`
+    const params = [userId]
     let queryResult = ''
     try {
         queryResult = await db.sendData(query, params) 

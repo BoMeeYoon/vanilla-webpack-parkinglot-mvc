@@ -1,5 +1,6 @@
-import {$, preventEnter} from '../../1.Common/View/ElementHooks.js'
-import View from '../View/DefaultView.js'
+const log = console.log;
+import {$, preventEnter} from "../../1.Common/View/ElementsHooks.js"
+import View from "../../1.Common/View/View.js"
 export default class PayPaymentView extends View {
     constructor(el) {
         super(el)
@@ -14,7 +15,7 @@ export default class PayPaymentView extends View {
         this.el.innerHTML = `
         <div class="modal-pay">
             <h1>현금을 투입하세요</h1>
-            <input name="money" type="text" placeholder="10,000">
+            <input name="money" type="number" placeholder="10,000">
             <div class="btns-box">
                 <button class="exit">취소</button>
                 <button class="topay">결제</button>
@@ -33,7 +34,7 @@ export default class PayPaymentView extends View {
             e.preventDefault();
             const money = this.moneyEl.value;
             console.log(!money.length)
-            !money.length ? this.alertErrorMsg(-1) : this.emit('@pay', {money})
+            !money.length ? this.alertErrorMsg(-1) : this.emit("@pay", {money})
         })
         this.exitBtn.addEventListener('click', () => this._bindRemove())
     }
@@ -59,7 +60,7 @@ export default class PayPaymentView extends View {
             alert(`정산이 완료 되었습니다.
                 잔액은 ${money.toLocaleString()}원 입니다`)
         
-        changeCss('#modalCss', '')
+        
         this.moneyEl.value = ''
         location.href = '/pay'
     }
@@ -69,6 +70,6 @@ export default class PayPaymentView extends View {
             modalEl.removeChild(modalEl.firstChild);
         }
 
-        changeCss('#modalCss', '')
+        
     }
 }

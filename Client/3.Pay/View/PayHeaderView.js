@@ -1,5 +1,7 @@
 const log = console.log
 const tag = '[PayHeaderView]'
+import "../../src/css/Default.css";
+import "../../src/css/pay/PayApp.css";
 import "../../src/css/pay/PayHeaderView.css";
 
 export default {

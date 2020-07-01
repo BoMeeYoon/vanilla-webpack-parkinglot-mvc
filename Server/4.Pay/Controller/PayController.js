@@ -29,9 +29,9 @@ class PayController {
         }
 
     }
-    async updatePaid(carNumber) {
+    async updatePaid(userId) {
         
-        const result = await this.sql.updatePaid(carNumber)
+        const result = await this.sql.updatePaid(userId)
 
         log(result, tag)
     }
