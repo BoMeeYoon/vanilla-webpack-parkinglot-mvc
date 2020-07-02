@@ -1,9 +1,10 @@
 const log = console.log;
-import View from "../../1.Common/View/View.js"
-import {preventEnter} from "../../1.Common/View/ElementsHooks.js"
+import View from "../../1.Common/View/View.js";
+import {preventEnter} from "../../1.Common/View/ElementsHooks.js";
+import "../../src/css/pay/PayFeeView.css";
+
 export default class PayFeeView extends View {
     constructor(el) {
-        
         super(el);
         preventEnter();
         return this
@@ -17,7 +18,6 @@ export default class PayFeeView extends View {
 
         this._initRender()
         this._bindEvents()
-        
     }
     _initRender() {
         this.display1El.innerHTML = `
@@ -57,9 +57,9 @@ export default class PayFeeView extends View {
     }
 
     _bindEvents() {
-        this.payBtn = this.el.querySelector('.pay')
-        this.homeBtn = this.el.querySelector('.homeBtn')
-        this.payBtn.addEventListener('click', e => this.emit("@checkFee", this.data))
-        this.homeBtn.addEventListener('click', () => location.assign('/pay'))
+        this.payBtn = this.el.querySelector(".pay");
+        this.homeBtn = this.el.querySelector(".homeBtn");
+        this.payBtn.addEventListener("click", e => this.emit("@checkFee", this.data));
+        this.homeBtn.addEventListener("click", () => location.assign("/pay"));
     }
 }

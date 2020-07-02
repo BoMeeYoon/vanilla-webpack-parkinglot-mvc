@@ -1,6 +1,8 @@
 const log = console.log;
 import View from "../../1.Common/View/View.js";
 import {preventEnter} from "../../1.Common/View/ElementsHooks.js";
+import "../../src/css/pay/PaySearchView.css";
+
 export default class PaySearchView extends View {
     constructor(el) {
         super(el);
@@ -56,53 +58,55 @@ export default class PaySearchView extends View {
         this.submitBtn = this.el.querySelector('#ok');
         this.resetBtn = this.el.querySelector('#no');
         
-        this._bindEvents()
-        return this
+        this._bindEvents();
+        return this;
     }
 
     _bindEvents() {
         Array.from(this.numberEls).forEach(btn => {
         
-            btn.addEventListener('click', e => this.onClickEvent(e))
+            btn.addEventListener('click', e => this._onClickEvent(e));
         })
         this.submitBtn.addEventListener('click', e=> {
-            this.onSubmit(e)
+            this._onSubmit(e);
         })
-        this.resetBtn.addEventListener('click', () => this.reset())
+        this.resetBtn.addEventListener('click', () => this._reset());
     }
 
-    onClickEvent(e) {
-        this.inputEl.value += e.target.value
+    _onClickEvent(e) {
+        this.inputEl.value += e.target.value;
 
-        this.inputEl.value.length > 0 && this.onChangeEvent(this.inputEl.value)
+        this.inputEl.value.length > 0 && this._onChangeEvent(this.inputEl.value);
     }
 
-    onChangeEvent(value) {
+    _onChangeEvent(value) {
        
-        this.emit('@change', {carNumber : value})
+        this.emit('@change', {carNumber : value});
     }
 
-    onSubmit() {
-        this.emit('@submit', {carNumber : this.inputEl.value})
+    _onSubmit() {
+        this.emit('@submit', {carNumber : this.inputEl.value});
     }
-    reset() {
+
+    _reset() {
         this.inputEl.value = '';
     }
+
     isValid(result) {
-        log(this.submitBtn.disabled)
-        this.submitBtn.disabled = false
-        this.submitBtn.style.background = 'crimson'
-        this.submitBtn.style.color = 'white'
+        this.submitBtn.disabled = false;
+        this.submitBtn.style.background = 'var(--color-dark-pink)';
+        this.submitBtn.style.color = 'var(--color-white)';
        
     }
+
     alertErrorMsg(result) {
         switch(result.result) {
-            case -1 : alert('차량번호가 없습니다')
-            break
-            case -2 : alert('차량번호가 없습니다') //정산처리된 회원 차
-            break
-            default : new Error('Paysearchform alertError msg error')
+            case -1 : alert('차량번호가 없습니다');
+                break;
+            case -2 : alert('차량번호가 없습니다'); //정산처리된 회원 차
+                break;
+            default : new Error('Paysearchform alertError msg error');
         }
-        this.inputEl.value = ''
+        this._reset();
     }
 }

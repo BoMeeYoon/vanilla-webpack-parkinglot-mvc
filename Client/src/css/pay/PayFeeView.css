@@ -1,0 +1,73 @@
+.pay__display1 {
+    flex-direction: column;
+}
+
+.pay__display1-titles {
+    display: flex;
+    flex-direction: column;
+    margin: 4rem 0;
+}
+
+.pay__display1-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+    width: 95%;
+    height: 4rem;
+    padding: 0 3rem;
+
+    align-items: center;
+}
+
+.pay__display1-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.pay__display1-btns button {
+    width: 6rem;
+    height: 3rem;
+
+    padding: 2px;
+    border-radius: 4px;
+
+    font-size: var(--font-micro);
+    font-weight: var(--weight-bold);
+    color: var(--color-gray);
+
+    background: var(--color-gold);
+}
+
+.pay__display2 {
+    width: 100%;
+    height: 100%;
+}
+
+.fee__lists-table {
+    width: 100%;
+    height: 80%;
+    margin-top: 2.5rem;
+}
+
+
+.fee__lists-table tr {
+    height: 3rem;
+
+    border-bottom: 2px solid var(--color-lite-wite);
+    
+    font-size: var(--font-small);
+    font-weight: var(--weight-bold);
+
+}
+
+.fee__lists-table tr td:nth-child(1) {
+
+    text-align: center;
+    background-color: var(--color-semi-wite);
+}
+
+.fee__lists-table tr td:nth-child(2) {
+    padding-left: 1rem;
+}

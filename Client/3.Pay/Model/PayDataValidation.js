@@ -8,8 +8,7 @@ export function verifyCarNumber(data) {
 }
 
 export function verifyUserType(data, type="user") {
-    log(type,'type')
-
+    
     switch (type) {
 
         case 'member' : return data.filter( info => info.memberId !== 1)

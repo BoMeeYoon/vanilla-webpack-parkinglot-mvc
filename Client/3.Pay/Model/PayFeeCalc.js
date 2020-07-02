@@ -18,7 +18,7 @@ export default class PayFeeCalc {
     getTimer = () => {
         const now = new Date();
         const entryTime = new Date(this.userData.entryTime);
-        log(entryTime);
+        
         const timer = Math.floor( ((now.getTime()) - (entryTime.getTime()))/60000 );
         
         30 < timer <60 ? this.hs = 1 : this.hs = Math.floor(timer/60);

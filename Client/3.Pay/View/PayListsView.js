@@ -2,6 +2,7 @@ const log = console.log
 const tag = '[PayListsView.js]'
 import {preventEnter} from "../../1.Common/View/ElementsHooks.js"
 import View from '../../1.Common/View/View.js';
+import "../../src/css/pay/PayListsView.css";
 
 export default class PayListsView extends View {
     constructor(el) {
@@ -21,12 +22,12 @@ export default class PayListsView extends View {
     _initRender() {
         
         this.display1El.innerHTML = `
-        <div class="pay__display1">
+        <div class="pay__display1 lists__display1">
             <div class="pay__display1-titles">
                 <h1>차량정보 확인 후</h1>
                 <h1>본인의 차량을 선택하세요</h1>
             </div>
-            <div class="pay__display1-btns">
+            <div class="pay__display1-btns lists__display1-btns">
                 <button class="reSearchBtn">재조회</button>
                 <button class="homeBtn">처음</button>
             </div>

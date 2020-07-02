@@ -1,12 +1,16 @@
 const log = console.log;
 import {$, preventEnter} from "../../1.Common/View/ElementsHooks.js"
 import View from "../../1.Common/View/View.js"
+import "../../src/css/admin/Modal.css";
+import "../../src/css/pay/PayPaymentView.css"
+
 export default class PayPaymentView extends View {
     constructor(el) {
         super(el)
         return this
     }
     init() {
+        this.el.classList.add("modal");
         preventEnter();
         this._initMount();
         return this;
@@ -60,9 +64,9 @@ export default class PayPaymentView extends View {
             alert(`정산이 완료 되었습니다.
                 잔액은 ${money.toLocaleString()}원 입니다`)
         
-        
-        this.moneyEl.value = ''
-        location.href = '/pay'
+        location.href = '/pay';
+        this.moneyEl.value = '';
+        this.el.classList.remove("modal");
     }
     _bindRemove() {
         const modalEl = $('#modal')

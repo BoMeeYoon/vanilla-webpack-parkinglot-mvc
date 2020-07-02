@@ -1,0 +1,48 @@
+
+.modal-pay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 400px;
+    width: 400px;
+    margin-top: 50px;
+    background-color: #f3f1eb;
+    border-radius: 24px;
+}
+
+.modal-pay h1 {
+    margin: 4rem 0;
+}
+
+.modal-pay input {
+    width: 80%;
+    height: 3rem;
+    box-sizing: border-box;
+    padding: 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 5px 5px 10px #ffd70052;
+}
+
+.modal-pay .btns-box {
+    display: flex;
+    justify-content: space-around;
+
+    width: 50%;
+    margin-top: 3rem;
+}
+
+.modal-pay .btns-box button {
+    width: 40%;
+    height: 2.5rem;
+
+    border-radius: var(--size-border-radius-small);
+    font-size: var(--font-small);
+    background-color: var(--color-gold);
+}
+
+.topay {
+    background-color: var(--color-dark-pink);
+}
