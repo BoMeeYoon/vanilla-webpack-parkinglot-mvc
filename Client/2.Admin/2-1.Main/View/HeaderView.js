@@ -57,7 +57,7 @@ export default class HeaderView extends View {
     };
 
     bindRemove() {
-        log(this.header)
+
         this.header && this.header.remove()
         return this;
     }

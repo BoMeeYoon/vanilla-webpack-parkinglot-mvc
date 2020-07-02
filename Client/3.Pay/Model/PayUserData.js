@@ -12,12 +12,12 @@ export default class UserData {
         this.fee 
     }
     setUserData(data) {
-        log(data)
+        
         this.carNumber = data.carNumber;
         this.entryTime = data.entryTime;
         this.paid = data.paid;
         this.userId = data.userId;
-        log(this.entryTime)
+        
     }
     setFee(fee) {
         this.fee = fee
@@ -41,7 +41,6 @@ export default class UserData {
         return this.carNumber
     }
     getEntryTime() {
-        log(this.entryTime)
         return this.entryTime
     }
     getTime() {
@@ -49,15 +48,6 @@ export default class UserData {
     }
     getFee() {
         return this.fee
-    }
-    getNow() {
-        return this.now
-    }
-    getHs() {
-        return this.hs
-    }
-    getMs() {
-        return this.ms
     }
     getUserId() {
         return this.userId;

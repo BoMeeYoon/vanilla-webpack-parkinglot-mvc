@@ -6,9 +6,7 @@
 
     width: var(--modal-regular-width);
     height: var(--modal-regular-height);
-    
-    /* margin-top: 3.8rem; */
-    
+        
     border-radius: var(--size-border-radius-regular);
 
     background-color: var(--color-white);
@@ -23,13 +21,6 @@
     margin-top: 0;
 }
 
-/* .add_form-title {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-    text-align: center;
-} */
-
 .add__form-title {
 
     font-size: var(--font-regular);
@@ -37,13 +28,14 @@
 }
 
 .add__form-inputs {
-    margin-top:1rem;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 350px;
     height: 250px;
+    margin-top:1rem;
 }
 
 .add__form-inputData {
@@ -60,51 +52,74 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    
     width: 80px;
     height: 40px;
-    line-height: 54px;
 
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #555;
+    font-size: var(--font-micro);
+    font-weight: var(--weight-bold);
+    line-height: 54px;
+    color: var(--color-gray);
 }
 
 .add__form-inputData input {
     
     display: inline-block;
-    background-color: #fa52521a;
-    color: #555;
     
-    font-size: 10px;
     width: 300px;
     height: 40px;
+    
+    padding-left: 2rem;
     border-radius: 10px;
     border: 1px solid #f3f6f7b0;
-    box-sizing: border-box;
-    padding-left: 2rem;
+
+    font-size: var(--font-nano);
+    color: var(--color-gray);
+    
+    background-color: #fa52521a;
+
 }
 
 .add__form-btns {
-    margin-top: 2rem;
-    width: 14rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    width: 14rem;
+    margin-top: 2rem;
+    
 }
 
 .add__form_btn {
     width: 5rem;
     height: 35px;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 0.8rem;
-    color: white;
-    background-color: gold;
+
     margin: 0.5rem;
+    
+    border-radius: 10px;
+    font-weight: var(--weight-bold);
+    font-size: var(--font-nano);
+    color: white;
+    background-color: var(--color-gold);
+    
 }
 
 #submit {
-    background-color: #555;
-    color: whitesmoke;
+    color: var(--color-white);
+    background-color: var(--color-gray);
+    
 }
 
+#update {
+    color: var(--color-white);
+    background-color: var(--color-dark-pink);
+
+    transition: 0.5s;
+}
+
+#update:hover {
+
+    border: 2px solid var(--color-dark-pink);
+    color: var(--color-dark-pink);
+    background-color: var(--color-white);
+}

@@ -37,7 +37,7 @@ export default class PayPaymentView extends View {
             
             e.preventDefault();
             const money = this.moneyEl.value;
-            console.log(!money.length)
+            
             !money.length ? this.alertErrorMsg(-1) : this.emit("@pay", {money})
         })
         this.exitBtn.addEventListener('click', () => this._bindRemove())
@@ -45,31 +45,34 @@ export default class PayPaymentView extends View {
     
     alertErrorMsg(error, money = null) {
         switch(error) {
-            case -1 : alert('금액을 입력하세요')
+            case -1 : alert('🚩금액을 입력하세요🚩')
             break
-            case -2 : alert('숫자를 입력하세요')
+            case -2 : alert('🚩숫자를 입력하세요🚩')
             break
-            case -3 : alert(`${money.toLocaleString()}원이 부족합니다`)
+            case -3 : alert(`💰${money.toLocaleString()}원이 부족합니다💰`)
             default : new Error ('paymodalview alertErrormsg error ')
         }
     }
     _alertMsg() {
         alert('기본 무료 주차 시간입니다')
-        alert('정산이 완료되었습니다. 안전 운전 하세요!')
+        alert('🏎정산이 완료되었습니다. 안전 운전 하세요!🚥')
         changeCss('#modalCss', '')
     }
     alertMsg(money) {
         money === 0 ? 
-            alert('정산이 완료 되었습니다') : 
-            alert(`정산이 완료 되었습니다.
-                잔액은 ${money.toLocaleString()}원 입니다`)
+            alert(`🚥정산이 완료 되었습니다🏎
+                안전 운전 하세요!🚥`) : 
+            alert(`🏎정산이 완료 되었습니다.🚥
+                잔액은 ${money.toLocaleString()}원 입니다.
+                안전 운전 하세요!🚙`)
         
         location.href = '/pay';
         this.moneyEl.value = '';
         this.el.classList.remove("modal");
     }
     _bindRemove() {
-        const modalEl = $('#modal')
+        this.el.classList.remove("modal");
+        const modalEl = $('#modal');
         while(modalEl.firstChild) {
             modalEl.removeChild(modalEl.firstChild);
         }

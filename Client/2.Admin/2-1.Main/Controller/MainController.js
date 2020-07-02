@@ -50,7 +50,7 @@ export default class MainController {
     loginHandler = ({id, pw}) => {
         this.loginView.bindRemove();
         this.headerView.bindRemove();
-        log(id, pw)
+        
         login(id, pw);
         this.goin("goMember");
         

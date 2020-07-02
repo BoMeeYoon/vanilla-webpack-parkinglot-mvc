@@ -25,7 +25,7 @@ export default class MemberInputValidation {
 
     }
     verify() {
-        log(this.inputData)
+
         const name = Object.keys(this.inputData)[0];
         const value = Object.values(this.inputData)[0];
         

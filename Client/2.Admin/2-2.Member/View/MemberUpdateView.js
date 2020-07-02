@@ -7,13 +7,13 @@ export default class MemberUpdateView extends View {
     constructor(el) {
         super(el);
         this.errorMsg = {
-            carNumber : `차량번호를 다시 입력하세요`,
-            name : `두 글자 이상 입력하세요`,
-            mobile : `핸드폰 번호를 다시 입력하세요`,
-            startDate : `계약일은 오늘 날짜 이후 부터 선택하세요`,
-            expireDate : `만료일을 확인하세요`,
-            submit : `정보를 모두 입력하세요`,
-            query : `등록되지 않은 회원입니다`
+            carNumber : `🚩차량번호를 다시 입력하세요🚩`,
+            name : `🚩두 글자 이상 입력하세요🚩`,
+            mobile : `🚩핸드폰 번호를 다시 입력하세요🚩`,
+            startDate : `🚩계약일은 오늘 날짜 이후 부터 선택하세요🚩`,
+            expireDate : `🚩만료일을 확인하세요🚩`,
+            submit : `🚩정보를 모두 입력하세요🚩`,
+            query : `🚩등록되지 않은 회원입니다🚩`
         }
         this.data;
         return this;
@@ -30,7 +30,7 @@ export default class MemberUpdateView extends View {
             <form class="add__form">
                 <div class="add__form-data">
                     <h1 class="add__form-title">
-                        회원정보를 입력하세요
+                    ❮ 📝${this.data.name}님의 정보를 수정하세요 ❯
                     </h1>
                     <div class="add__form-inputs">
                         <div class="add__form-inputData">

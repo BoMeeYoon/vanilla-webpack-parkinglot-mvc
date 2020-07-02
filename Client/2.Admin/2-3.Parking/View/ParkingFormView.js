@@ -93,10 +93,10 @@ export default class ParkingFormView extends View {
     alertErrorMsg(result) {
         this._reset()
         switch(result) {
-            case -1 : return alert('차량번호를 입력하세요')
-            case -2 : return alert('차량번호를 확인하세요')
-            case -3 : return alert('입차처리 된 회원 차량입니다')
-            case -4 : return alert('입차처리 된 비회원 차량입니다')
+            case -1 : return alert('🚩차량번호를 입력하세요🚩')
+            case -2 : return alert('🚩차량번호를 확인하세요🚩')
+            case -3 : return alert('🚩입차처리 된 회원 차량입니다🚩')
+            case -4 : return alert('🚩입차처리 된 비회원 차량입니다🚩')
             default : throw new Error('Unhandled query-result')
         }
     }

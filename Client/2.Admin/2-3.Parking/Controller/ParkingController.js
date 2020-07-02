@@ -15,9 +15,7 @@ export default class ParkingController {
         const parkingfooterViewEl = $("#footer");
         const parkingMenuEl = $("#menu");
         const parkingContentEl = $("#content");
-        const parkingModalEl = $("#modal");
         
-    
         this.headerView = new HeaderView(parkingheaderViewEl)
             .init("회원관리", "LOGOUT")
             .on("@logout", e => {

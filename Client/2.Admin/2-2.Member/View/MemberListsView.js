@@ -80,8 +80,7 @@ export default class MemberListsView extends View {
             e.preventDefault();
             const memberData = this.data[e.target.id];
             const {memberId, name} = memberData;
-            log(memberData);
-            log(memberId, name)
+            
             this.emit("@delete", {memberId, name})
         }))
     }

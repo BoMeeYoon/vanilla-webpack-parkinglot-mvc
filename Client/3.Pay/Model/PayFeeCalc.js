@@ -24,7 +24,7 @@ export default class PayFeeCalc {
         30 < timer <60 ? this.hs = 1 : this.hs = Math.floor(timer/60);
         this.ms = timer%60;
         
-        return `${this.hs}시간 ${this.ms}분`;
+        return `${30 < timer <60 ? 0 : this.hs}시간 ${this.ms}분`;
     }
     getFee = () => {
         this.useState.setFee(this.hs*1000);

@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: flex-end;
     
-    height: 10vh;
+    height: 12vh;
     margin: 0;
     padding: 1rem;
     background: var(--color-white);
@@ -26,7 +26,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-
+    /* position: relative; */
     width: 190px;
     margin-top: auto;
 
@@ -34,6 +34,7 @@
     font-weight: var(--weight-semi-bold);
 
 }
+
 
 #root {
     display: flex;
@@ -90,4 +91,13 @@
     
     background: var(--color-gray);
     
+}
+
+#footer h1 {
+    margin: 0;
+    font-size: var(--font-regular);
+}
+
+#footer h1:nth-last-child(1) {
+    font-size: var(--font-micro);
 }

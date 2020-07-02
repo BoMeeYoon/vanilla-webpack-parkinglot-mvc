@@ -14,9 +14,9 @@ export default class ParkingOutView extends View {
     // 출차처리에 대한 오류 값
     alertErrorMsg(result) {   
         switch(result.result) {
-            case -1 : return alert('이미 출차 처리 된 차량입니다')
-            case -2 : return alert('입차되지 않은 차량입니다')
-            default : alert('차량정보가 없습니다')
+            case -1 : return alert('🚩이미 출차 처리 된 차량입니다🚩')
+            case -2 : return alert('🚩입차되지 않은 차량입니다🚩')
+            default : alert('📂차량정보가 없습니다📂')
         }
         this.bindRemove()
         this._reset()
@@ -86,14 +86,14 @@ export default class ParkingOutView extends View {
         
     }
     _checkExitTime = (data) => {
-        const {carNumber, entryTime, exitTime, memberId, paid, userId} = data;
-        log(data, carNumber, entryTime, exitTime, memberId, paid, userId)
+        const {carNumber, entryTime, exitTime, userId} = data;
+        
         this.userId = userId;
         if(exitTime) return this.alertErrorMsg({result:-1});
         this.emit("@out", {userId, carNumber, entryTime})        
     }
-    alertMsg() {
-        alert('출차가 완료되었습니다')
+    _alertMsg() {
+        alert('🏎출차가 완료되었습니다🚚👋')
         $('input[name=carNumber]').value = '';
     
     }
@@ -105,6 +105,7 @@ export default class ParkingOutView extends View {
         this.data = this.data.map(info => info.userId === userId ? {...info, exitTime : _exitTime} : info )
         
         this.bindResultsRender(this.data)
+        this._alertMsg();
     }
 
     _bindRemove() {

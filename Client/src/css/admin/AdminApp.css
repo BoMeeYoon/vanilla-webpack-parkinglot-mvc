@@ -48,12 +48,14 @@
 }
 
 .header__nav-btns {
-    text-align: center;
     height: 80%;
-    color: #6a82fb;
-    font-weight: bold;
+    color: var(--color-blue);
+    font-weight: var(--weight-bold);
+    text-align: center;
 }
-
+.header__nav-btns:hover {
+    color: var(--color-dark-pink);
+}
 .header__nav-btns:first-child::after{
     content: "";
     border: 2px solid var(--color-lite-blue);

@@ -13,8 +13,8 @@ export default class MemberDeleteView extends View {
     }
     init(data) {
         this.data = data;
-        const title = `"${data.name}"님의 정보를<br/> 삭제하시겠습니까?`;
-        const text = `삭제한 정보는 복구할 수 없습니다`;
+        const title = `❝${data.name}❞님의<br/> 정보를<br/> 삭제하시겠습니까?`;
+        const text = `🚨삭제한 정보는 복구할 수 없습니다🚨`;
         modalView(this.el, title, text);
         this._bindEvents();
         preventEnter();
@@ -35,6 +35,6 @@ export default class MemberDeleteView extends View {
     }
     sendMsg(name){
         log(name)
-        return alert(`${name}님의 정보가 삭제되었습니다`)
+        return alert(`❝${name}❞님의 정보가 삭제되었습니다🗂`)
     }
 }

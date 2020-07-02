@@ -8,7 +8,7 @@ export async function searchRequest({carNumber}) {
 
 export async function updateRequest(userId) {
     const response = await Ajax.request("PUT", `http://localhost:5000/pay/out`, [userId])
-    log(response)
+    
     return response;
 }
 

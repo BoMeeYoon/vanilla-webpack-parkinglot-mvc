@@ -12,12 +12,12 @@ export default class Menuview extends View {
         preventEnter();
 
         this.errorMsg = {
-            NO_SELECT : `검색 조건을 선택하세요`,
-            NO_KEYWORD : `검색어를 입력하세요`,
-            mobile : `핸드폰 번호를 다시 입력하세요`,
-            name : `회원명을 다시 입력하세요`,
-            carNumber : `차량번호를 다시 입력하세요`,
-            query : `회원정보가 없습니다`
+            NO_SELECT : `🚩검색 조건을 선택하세요🚩`,
+            NO_KEYWORD : `🚩검색어를 입력하세요🚩`,
+            mobile : `🚩핸드폰 번호를 다시 입력하세요🚩`,
+            name : `🚩회원명을 다시 입력하세요🚩`,
+            carNumber : `🚩차량번호를 다시 입력하세요🚩`,
+            query : `🚩회원정보가 없습니다🚩`
         }
         return this;
     }

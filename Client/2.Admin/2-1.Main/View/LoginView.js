@@ -115,7 +115,6 @@ export default class LoginView extends View {
     }
     
     bindRemove() {
-        log(this.login)
         this.login && this.login.remove()
         this.el.className="";
         return this;

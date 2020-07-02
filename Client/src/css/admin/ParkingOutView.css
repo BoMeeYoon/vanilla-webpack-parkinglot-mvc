@@ -18,14 +18,14 @@
 }
 
 .parking__table-head {
-    border-bottom: 2px solid var(--color-semi-white);
+    border: 2px solid var(--color-blue);
     font-size: var(--font-small);
     font-weight: var(--weight-semi-bold);
     color: var(--color-gray)
 }
 
 .parking__table-head tr {
-    line-height: 36px;
+    line-height: 40px;
     text-align: center;
 }
 .parking__table-body {
@@ -34,37 +34,41 @@
 
 .parking__table-body tr {
     margin: 10px 0;
-    line-height:  30px;
+    line-height:  45px;
     background-color: var(--color-lite-white);
+
+    transition: 0.3s;
     
 }
-
-.parking__table-body td {
+.parking__table-body tr {
     font-size: var(--font-micro);
     font-weight: var(--weight-semi-bold);
-    line-height: 35px;
+    line-height: 45px;    
+}
+.parking__table-body tr:hover {
+
+    border: 2px solid var(--color-dark-pink);
 }
 
 .parking__table-body td:nth-last-child(1) {
     
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: inline-block;
     
     height: 100%;
     text-align: center;
-    line-height: 35px;
+    line-height: 45px;
     
 }
 
-.parking__table-body td:nth-last-child(1) button {
-    width: 80%;
+/* .parking__table-body td:nth-last-child(1) button */
+.out {
+    width: 90%;
     height: 80%;
     
     margin: 2px;
     padding: 2px;
 
-    border: 2px solid var(--color-white);
+    border: 2px solid var(--color-gold);
     border-radius: var(--size-border-radius-small);
     
     color: var(--color-dark-pink);
@@ -72,4 +76,8 @@
     font-weight: var(--weight-semi-bold)
 }
 
+.out:hover {
+    color: var(--color-white);
+    background-color: var(--color-dark-pink);
+}
 
