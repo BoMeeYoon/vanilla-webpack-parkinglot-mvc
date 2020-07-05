@@ -45,18 +45,19 @@ export default class PayPaymentView extends View {
     
     alertErrorMsg(error, money = null) {
         switch(error) {
-            case -1 : alert('🚩금액을 입력하세요🚩')
-            break
-            case -2 : alert('🚩숫자를 입력하세요🚩')
-            break
-            case -3 : alert(`💰${money.toLocaleString()}원이 부족합니다💰`)
-            default : new Error ('paymodalview alertErrormsg error ')
+            case -1 : alert('🚩금액을 입력하세요🚩');
+                break;
+            case -2 : alert('🚩숫자를 입력하세요🚩');
+                break;
+            case -3 : alert(`💰${money.toLocaleString()}원이 부족합니다💰`);
+                break;
+            default : new Error ('paymodalview alertErrormsg error ');
         }
     }
     _alertMsg() {
         alert('기본 무료 주차 시간입니다')
         alert('🏎정산이 완료되었습니다. 안전 운전 하세요!🚥')
-        changeCss('#modalCss', '')
+        
     }
     alertMsg(money) {
         money === 0 ? 

@@ -18,7 +18,7 @@ export default class ParkingController {
         
         this.headerView = new HeaderView(parkingheaderViewEl)
             .init("회원관리", "LOGOUT")
-            .on("@logout", e => {
+            .on("@logout", () => {
                 logout();
                 location.assign('/');})
             .on("@changePage", e => location.assign('/'));

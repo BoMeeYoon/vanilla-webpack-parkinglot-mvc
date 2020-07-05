@@ -52,7 +52,7 @@ export default class ParkingFormView extends View {
             this._bindBtnsStyle(_check);
             return _check;
         })
-        this.inputEl.addEventListener("click", e => this.emit("@click"))
+        this.inputEl.addEventListener("click", () => this.emit("@click"))
     }
     _bindBtnsStyle(result) {
         if(result === true) {

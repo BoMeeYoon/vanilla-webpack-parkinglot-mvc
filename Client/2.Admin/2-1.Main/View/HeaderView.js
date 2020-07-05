@@ -9,9 +9,9 @@ import "../../../src/css/admin/AdminApp.css"
 export default class HeaderView extends View {
 
     constructor(el) {
-        super(el);
-        return this;
-    };
+        super(el)
+        return this
+    }
     
     init(adminMenu, logState) {
         this.adminMenu = adminMenu;
