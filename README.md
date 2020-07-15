@@ -10,7 +10,7 @@
 
 ## 아키텍쳐
 
-  <img src="arquitecture.png" width="450px" height="300px">
+  <img src="arquitecture.png" width="600px" height="400px">
 
 ## 결과물
 
