@@ -15,13 +15,13 @@
   - MySQL
 
 ## 아키텍쳐
-  🔸 FRONT-END 디자인패턴: MVC, OOP 🔸
-  👉 Model : 데이터 상태 관리, 검증, api
-  👉 View : ui components, action event emit
-  👉 Controller: View 와 Model 에 data  혹은 action 전달
-  👉 Utils : 
-      - 엘레먼트 관련 공통 로직 custom hooks 
-      - css root에 global style 정의
+  🔸 FRONT-END 디자인패턴: MVC, OOP 🔸<br/>
+  👉 Model : 데이터 상태 관리, 검증, api<br/>
+  👉 View : ui components, action event emit<br/>
+  👉 Controller: View 와 Model 에 data  혹은 action 전달<br/>
+  👉 Utils : <br/>
+      - 엘레먼트 관련 공통 로직 custom hooks <br/>
+      - css root에 global style 정의<br/>
   <img src="arquitecture.png" width="700px" height="450px">
 
 <br/>
